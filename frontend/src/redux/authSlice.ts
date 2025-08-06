@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials: { email: string; password: string }, thunkAPI) => {
     try {
-      const res = await axiosInstance.post("/login", credentials);
+      const res = await axiosInstance.post("/auth/login", credentials);
       return res.data;
     } catch (err: any) {
       return thunkAPI.rejectWithValue(err.response.data.message);
@@ -39,7 +39,7 @@ export const registerUser = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const res = await axiosInstance.post("/register", userData);
+      const res = await axiosInstance.post("/auth/register", userData);
       return res.data;
     } catch (err: any) {
       return thunkAPI.rejectWithValue(err.response.data.message);
@@ -48,9 +48,21 @@ export const registerUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
-  await axiosInstance.post("/logout");
+  await axiosInstance.post("/auth/logout");
   return null;
 });
+
+export const getCurrentUser = createAsyncThunk(
+  "auth/getCurrentUser",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axiosInstance.get("/auth/me");
+      return res.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -90,6 +102,15 @@ const authSlice = createSlice({
 
       // logout
       .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      // me route
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(getCurrentUser.rejected, (state) => {
         state.user = null;
         state.isAuthenticated = false;
       });
