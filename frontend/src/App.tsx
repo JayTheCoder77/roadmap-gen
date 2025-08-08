@@ -14,8 +14,8 @@ export default function App() {
 
   return (
     <>
-      <Toaster richColors position="top-right" />
       <RouterProvider router={AppRoutes} />
+      <Toaster richColors position="top-right" />
     </>
   );
 }
