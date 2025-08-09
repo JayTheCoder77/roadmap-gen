@@ -16,7 +16,7 @@ interface AuthSlice {
 const initialState: AuthSlice = {
   user: null,
   isAuthenticated: false,
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -105,14 +105,19 @@ const authSlice = createSlice({
         state.user = null;
         state.isAuthenticated = false;
       })
-      // me route
+      // auth check
+      .addCase(getCurrentUser.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthenticated = true;
+        state.loading = false;
       })
       .addCase(getCurrentUser.rejected, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+        state.loading = false;
       });
   },
 });
