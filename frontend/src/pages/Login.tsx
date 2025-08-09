@@ -1,10 +1,15 @@
 import { LoginForm } from "@/components/auth/LoginForm";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "../components/mode-toggle";
-export default function LoginPage() {
+export default function Login() {
   return (
     <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10 relative">
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <div className="absolute top-4">
+          <h1 className="font-bold font-sans p-4 text-2xl">
+            Website RoadMap Generator
+          </h1>
+        </div>
         <div className="absolute top-4 right-4 z-50">
           <ModeToggle />
         </div>

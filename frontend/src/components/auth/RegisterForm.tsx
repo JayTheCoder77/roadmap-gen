@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function LoginForm({
+export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -15,10 +15,14 @@ export function LoginForm({
           <form className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
+                <h1 className="text-2xl font-bold">Welcome</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your RoadMapGen account
+                  Register Your RoadMapGen account
                 </p>
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" type="text" placeholder="John Doe" required />
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
@@ -43,9 +47,9 @@ export function LoginForm({
               </Button>
 
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                have an account?{" "}
                 <a href="#" className="underline underline-offset-4">
-                  Sign up
+                  Log In
                 </a>
               </div>
             </div>
